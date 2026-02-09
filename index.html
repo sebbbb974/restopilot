@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RestoPilot — Pilotez votre restaurant · by IA Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a1628;
+  --bg2:#0e1d33;
+  --bg3:#12243e;
+  --surface:#132040;
+  --surface-2:#17294d;
+  --surface-3:#1c3058;
+  --orange:#f28c28;
+  --orange-2:#e87a1a;
+  --orange-dim:rgba(242,140,40,0.08);
+  --orange-glow:rgba(242,140,40,0.12);
+  --orange-border:rgba(242,140,40,0.2);
+  --blue:#4a9ade;
+  --blue-dim:rgba(74,154,222,0.08);
+  --blue-border:rgba(74,154,222,0.15);
+  --green:#22c55e;
+  --green-dim:rgba(34,197,94,0.07);
+  --green-border:rgba(34,197,94,0.18);
+  --red:#ef4444;
+  --red-dim:rgba(239,68,68,0.07);
+  --text:#edf2f7;
+  --text-2:#8da4bf;
+  --text-3:#4a6380;
+  --border:rgba(74,154,222,0.08);
+  --border-2:rgba(74,154,222,0.14);
+  --r:14px;
+  --r2:20px;
+}
+html{scroll-behavior:smooth;zoom:1.55}
+body{font-family:'Exo 2',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:17px}
+::selection{background:rgba(242,140,40,0.3);color:#fff}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+/* Stars background */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(1px 1px at 10% 20%,rgba(255,255,255,0.4),transparent),
+    radial-gradient(1px 1px at 30% 65%,rgba(255,255,255,0.3),transparent),
+    radial-gradient(1px 1px at 50% 10%,rgba(255,255,255,0.5),transparent),
+    radial-gradient(1px 1px at 70% 40%,rgba(255,255,255,0.3),transparent),
+    radial-gradient(1px 1px at 90% 80%,rgba(255,255,255,0.4),transparent),
+    radial-gradient(1.5px 1.5px at 15% 90%,rgba(255,255,255,0.2),transparent),
+    radial-gradient(1px 1px at 85% 15%,rgba(255,255,255,0.35),transparent),
+    radial-gradient(1px 1px at 45% 55%,rgba(255,255,255,0.25),transparent),
+    radial-gradient(1.5px 1.5px at 65% 75%,rgba(255,255,255,0.3),transparent),
+    radial-gradient(1px 1px at 25% 35%,rgba(255,255,255,0.2),transparent),
+    radial-gradient(1px 1px at 5% 50%,rgba(255,255,255,0.4),transparent),
+    radial-gradient(1px 1px at 55% 85%,rgba(255,255,255,0.35),transparent),
+    radial-gradient(1px 1px at 75% 5%,rgba(255,255,255,0.25),transparent),
+    radial-gradient(1px 1px at 95% 55%,rgba(255,255,255,0.3),transparent),
+    radial-gradient(1px 1px at 35% 95%,rgba(255,255,255,0.2),transparent);
+  background-size:100% 100%;
+}
+/* ══════════ NAV ══════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:68px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+  background:rgba(10,22,40,0.7);
+  backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);
+  border-bottom:1px solid var(--border);
+}
+.n-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.n-logo img{height:46px;width:auto}
+.n-logo-txt{font-weight:800;font-size:18px;color:#fff;letter-spacing:-.3px}
+.n-logo-sub{font-weight:500;font-size:11px;color:var(--text-3);display:block;letter-spacing:.5px}
+.n-links{display:flex;align-items:center;gap:4px}
+.n-links a{font-size:14.5px;font-weight:600;color:var(--text-2);text-decoration:none;padding:7px 14px;border-radius:8px;transition:.2s}
+.n-links a:hover{color:#fff;background:rgba(74,154,222,0.08)}
+.n-cta{
+  margin-left:10px;padding:9px 22px;font-size:13.5px;font-weight:700;
+  color:#fff !important;background:var(--orange);border-radius:8px;text-decoration:none;
+  transition:.3s;border:none;cursor:pointer;
+}
+.n-cta:hover{background:var(--orange-2);box-shadow:0 0 28px rgba(242,140,40,0.3)}
+/* ══════════ HERO ══════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 24px 80px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-15%;left:50%;transform:translateX(-50%);
+  width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(74,154,222,0.08),transparent 60%);
+  filter:blur(40px);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-20%;right:-10%;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(242,140,40,0.06),transparent 60%);
+  filter:blur(50px);pointer-events:none;
+}
+/* HUD grid */
+.hero-hud{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(74,154,222,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,154,222,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at 50% 40%,black 5%,transparent 60%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;max-width:1080px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;
+}
+.h-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:6px 16px 6px 9px;border-radius:100px;
+  background:var(--surface);border:1px solid var(--blue-border);
+  font-size:14px;font-weight:600;color:var(--blue);margin-bottom:32px;
+}
+.h-pill-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{
+  font-size:clamp(42px,5.2vw,68px);font-weight:900;
+  line-height:1.04;letter-spacing:-2px;margin-bottom:24px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--orange),#fbbf24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.h-sub{font-size:19px;color:var(--text-2);max-width:480px;line-height:1.7;margin-bottom:40px}
+.h-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 32px;font-family:inherit;font-size:16px;font-weight:700;
+  background:var(--orange);color:#fff;border:none;border-radius:12px;
+  cursor:pointer;text-decoration:none;transition:.3s;
+}
+.btn-p:hover{background:var(--orange-2);box-shadow:0 0 40px rgba(242,140,40,0.25);transform:translateY(-2px)}
+.btn-s{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:15px 32px;font-family:inherit;font-size:16px;font-weight:700;
+  background:transparent;color:#fff;border:1px solid var(--border-2);border-radius:12px;
+  cursor:pointer;text-decoration:none;transition:.3s;
+}
+.btn-s:hover{border-color:var(--blue-border);background:var(--blue-dim)}
+/* Hero stats */
+.h-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.h-stat{
+  padding:26px 22px;border-radius:var(--r);
+  background:var(--surface);border:1px solid var(--border);
+  transition:.4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;
+}
+.h-stat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(74,154,222,0.15),transparent);
+}
+.h-stat:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.h-stat-n{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:5px}
+.h-stat-n.or{color:var(--orange)}
+.h-stat-n.gr{color:var(--green)}
+.h-stat-n.bl{color:var(--blue)}
+.h-stat-l{font-family:'Fira Code',monospace;font-size:11.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;font-weight:500}
+/* ══════════ SECTION UTILS ══════════ */
+.sec-l{
+  font-family:'Fira Code',monospace;font-size:12.5px;text-transform:uppercase;
+  letter-spacing:3.5px;color:var(--orange);font-weight:600;margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.sec-l::before{content:'';width:24px;height:2px;background:var(--orange);border-radius:1px}
+.sec-t{font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-1.5px;line-height:1.08;margin-bottom:14px}
+.sec-d{font-size:18px;color:var(--text-2);max-width:500px;line-height:1.7}
+/* Divider */
+.sec-div{height:1px;background:linear-gradient(90deg,transparent,var(--border-2),transparent)}
+/* ══════════ LOCAL COMPETITORS ══════════ */
+.local{padding:120px 24px;position:relative}
+.comp-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.comp-box{
+  padding:32px 28px;border-radius:var(--r2);
+  background:var(--surface);border:1px solid var(--border);transition:.35s;
+}
+.comp-box:hover{border-color:var(--border-2)}
+.comp-box h3{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
+.comp-type{display:block;font-family:'Fira Code',monospace;font-size:11.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:2px;margin-bottom:18px}
+.cl{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cl li{font-size:13px;color:var(--text-2);display:flex;align-items:flex-start;gap:10px;line-height:1.55}
+.cl-i{flex-shrink:0;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:10px;font-weight:700;margin-top:2px}
+.cl-i.x{background:var(--red-dim);color:var(--red)}
+.cl-i.w{background:rgba(234,179,8,0.08);color:#eab308}
+.cl-i.o{background:rgba(255,255,255,0.04);color:var(--text-3)}
+.comp-end{
+  margin-top:16px;padding:24px 28px;border-radius:var(--r2);
+  background:var(--orange-dim);border:1px solid var(--orange-border);
+  display:flex;align-items:center;gap:18px;
+}
+.comp-end .emoji{font-size:26px;flex-shrink:0}
+.comp-end h4{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.comp-end p{font-size:15px;color:var(--text-2);line-height:1.6}
+/* ══════════ GAINS ══════════ */
+.gains{padding:120px 24px}
+.g-block{margin-top:44px}
+.g-block+.g-block{margin-top:32px}
+.g-block-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.g-block-head span{font-size:22px}
+.g-block-head h3{font-size:17px;font-weight:800;letter-spacing:-.3px}
+.g-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g-card{
+  padding:26px 22px;border-radius:var(--r);
+  background:var(--surface);border:1px solid var(--border);
+  transition:.4s cubic-bezier(.16,1,.3,1);
+}
+.g-card:hover{border-color:var(--border-2);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.g-num{font-size:34px;font-weight:900;letter-spacing:-1px;line-height:1;margin-bottom:5px}
+.g-num.gr{color:var(--green)}
+.g-num.bl{color:var(--blue)}
+.g-num span{font-size:13px;font-weight:600;letter-spacing:0}
+.g-title{font-size:16px;font-weight:800;letter-spacing:-.2px;margin-bottom:5px}
+.g-card p{font-size:14.5px;color:var(--text-2);line-height:1.6}
+.g-calc{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg)}
+.g-calc-row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0;color:var(--text-2)}
+.g-calc-row.tot{border-top:1px solid var(--border);margin-top:5px;padding-top:7px;font-weight:700;color:#fff}
+.g-calc-row .neg{color:var(--red);font-weight:600}
+.g-calc-row .pos{color:var(--green);font-weight:700}
+.g-summary{
+  margin-top:32px;display:flex;align-items:center;justify-content:center;gap:40px;
+  padding:28px;border-radius:var(--r2);
+  background:var(--green-dim);border:1px solid var(--green-border);
+}
+.g-summary-item{text-align:center}
+.g-summary-item strong{font-size:30px;font-weight:900;color:var(--green);display:block;letter-spacing:-1px;line-height:1;margin-bottom:3px}
+.g-summary-item span{font-size:13px;color:var(--text-2)}
+.g-summary-sep{width:1px;height:36px;background:var(--green-border)}
+/* ══════════ FEATURES ══════════ */
+.features{padding:120px 24px}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.f{
+  padding:28px 22px;border-radius:var(--r);
+  background:var(--surface);border:1px solid var(--border);
+  transition:.4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;
+}
+.f:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.3)}
+.f.s2{grid-column:span 2}
+.f.glow{background:linear-gradient(160deg,rgba(242,140,40,0.04),var(--surface) 45%);border-color:var(--orange-border)}
+.f.glow:hover{border-color:rgba(242,140,40,0.35)}
+.f-ico{font-size:26px;margin-bottom:14px}
+.f h3{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:5px}
+.f p{font-size:14.5px;color:var(--text-2);line-height:1.65}
+.f-tag{
+  display:inline-block;margin-top:10px;padding:3px 9px;border-radius:5px;
+  font-family:'Fira Code',monospace;font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:1px;
+}
+.f-tag.ex{background:var(--orange-dim);color:var(--orange);border:1px solid var(--orange-border)}
+.f-tag.fr{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border)}
+.f-tag.nw{background:rgba(139,92,246,0.08);color:#a78bfa;border:1px solid rgba(139,92,246,0.15)}
+.f-metric{display:block;margin-top:8px;font-family:'Fira Code',monospace;font-size:12px;font-weight:600;color:var(--green)}
+/* ══════════ COMPARE TABLE ══════════ */
+.compare{padding:120px 24px}
+.c-wrap{margin-top:48px;border-radius:var(--r2);border:1px solid var(--border);overflow:hidden;background:var(--surface)}
+.c-tbl{width:100%;border-collapse:collapse}
+.c-tbl thead th{
+  padding:14px 12px;font-family:'Fira Code',monospace;font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);
+  text-align:center;border-bottom:1px solid var(--border);background:var(--bg3);
+}
+.c-tbl thead th:first-child{text-align:left;min-width:170px}
+.c-tbl thead th.us{color:var(--orange);background:var(--orange-dim)}
+.c-tbl tbody td{padding:14px;font-size:14px;color:var(--text-2);text-align:center;border-bottom:1px solid var(--border)}
+.c-tbl tbody td:first-child{text-align:left;font-weight:700;color:var(--text)}
+.c-tbl tbody td.us{background:rgba(242,140,40,0.02);color:#fff;font-weight:600}
+.c-tbl tbody tr:last-child td{border-bottom:none}
+.c-tbl tbody tr:hover td{background:rgba(255,255,255,0.01)}
+.c-tbl tbody tr:hover td.us{background:rgba(242,140,40,0.04)}
+.ty{color:var(--green);font-weight:700}
+.tn{color:var(--text-3)}
+.te{color:var(--orange);font-family:'Fira Code',monospace;font-size:10px;font-weight:700}
+/* ══════════ SMS ══════════ */
+.sms{padding:120px 24px}
+.sms-row{display:grid;grid-template-columns:1fr 50px 1fr;gap:0;align-items:center;margin-top:48px}
+.sms-c{padding:32px 28px;border-radius:var(--r2);background:var(--surface);border:1px solid var(--border)}
+.sms-c.lose{opacity:.4}
+.sms-c.win{border-color:var(--orange-border);background:linear-gradient(160deg,rgba(242,140,40,0.05),var(--surface) 50%);box-shadow:0 0 60px rgba(242,140,40,0.03)}
+.sms-c-l{font-family:'Fira Code',monospace;font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--text-3);margin-bottom:12px}
+.sms-c-p{font-size:50px;font-weight:900;letter-spacing:-2px;line-height:1}
+.sms-c.win .sms-c-p{color:var(--orange)}
+.sms-c-sub{font-size:15px;color:var(--text-3);margin:4px 0 18px}
+.sms-c-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.sms-c-list li{font-size:14.5px;color:var(--text-2);padding-left:16px;position:relative}
+.sms-c-list li::before{content:'→';position:absolute;left:0;font-size:11px;color:var(--text-3)}
+.sms-c.win .sms-c-list li::before{color:var(--orange)}
+.sms-vs{text-align:center;font-weight:900;font-size:15px;color:var(--text-3)}
+.sms-save{margin-top:16px;padding:22px;border-radius:var(--r);background:var(--green-dim);border:1px solid var(--green-border);text-align:center}
+.sms-save strong{font-size:26px;font-weight:900;color:var(--green);display:block;letter-spacing:-.5px}
+.sms-save span{font-size:14px;color:var(--text-2)}
+/* ══════════ PRICING ══════════ */
+.pricing{padding:120px 24px}
+.p-head{text-align:center}
+.p-head .sec-d{margin:0 auto;text-align:center}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:52px}
+.p-card{
+  padding:34px 26px;border-radius:var(--r2);
+  background:var(--surface);border:1px solid var(--border);
+  transition:.4s cubic-bezier(.16,1,.3,1);position:relative;
+}
+.p-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(0,0,0,0.4)}
+.p-card.pop{
+  border-color:var(--orange-border);
+  background:linear-gradient(170deg,rgba(242,140,40,0.05),var(--surface) 35%);
+  box-shadow:0 0 80px rgba(242,140,40,0.03);
+  transform:scale(1.02);z-index:2;
+}
+.p-card.pop:hover{transform:scale(1.02) translateY(-6px)}
+.pop-b{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  padding:5px 18px;background:var(--orange);color:#fff;border-radius:100px;
+  font-family:'Fira Code',monospace;font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:2px;white-space:nowrap;
+  box-shadow:0 0 20px rgba(242,140,40,0.4);
+}
+.p-tier{font-family:'Fira Code',monospace;font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--text-3)}
+.p-amt{font-size:50px;font-weight:900;letter-spacing:-2px;margin:8px 0 2px;line-height:1}
+.p-amt small{font-size:14px;font-weight:500;color:var(--text-3);letter-spacing:0}
+.p-com{font-size:14px;color:var(--orange);font-weight:600;min-height:18px;margin-bottom:22px}
+.p-div{height:1px;background:var(--border);margin-bottom:20px}
+.p-feat{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:26px;min-height:280px}
+.p-feat li{font-size:14.5px;color:var(--text-2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.p-dot{flex-shrink:0;width:17px;height:17px;border-radius:5px;display:grid;place-items:center;font-size:9px;margin-top:1px}
+.p-dot.y{background:var(--green-dim);color:var(--green)}
+.p-dot.n{background:rgba(255,255,255,0.03);color:var(--text-3)}
+.p-feat li.off{opacity:.25}
+.p-btn{
+  display:block;width:100%;padding:12px;text-align:center;border-radius:10px;
+  font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;
+  text-decoration:none;border:none;transition:.3s;
+}
+.p-btn.fill{background:var(--orange);color:#fff}
+.p-btn.fill:hover{background:var(--orange-2);box-shadow:0 0 30px rgba(242,140,40,0.3)}
+.p-btn.ghost{background:transparent;color:#fff;border:1px solid var(--border-2)}
+.p-btn.ghost:hover{border-color:var(--blue-border);background:var(--blue-dim)}
+.addon{
+  margin-top:16px;padding:24px 28px;border-radius:var(--r2);
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.addon h3{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:3px}
+.addon p{font-size:14.5px;color:var(--text-2);line-height:1.6;max-width:540px}
+.addon-v{text-align:center;flex-shrink:0}
+.addon-v strong{font-size:34px;font-weight:900;letter-spacing:-1px;color:var(--orange);display:block;line-height:1}
+.addon-v span{font-size:10.5px;color:var(--text-3)}
+/* ══════════ ROI ══════════ */
+.roi{padding:120px 24px}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.roi-card{padding:32px 28px;border-radius:var(--r2);background:var(--surface);border:1px solid var(--border)}
+.roi-card.good{border-color:var(--green-border);background:linear-gradient(170deg,rgba(34,197,94,0.03),var(--surface) 35%)}
+.roi-card h3{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:20px}
+.roi-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:15px}
+.roi-row:last-of-type{border-bottom:none}
+.roi-row-l{color:var(--text-2)}
+.roi-row-v{font-weight:700}
+.roi-row-v.neg{color:var(--red)}
+.roi-row-v.pos{color:var(--green)}
+.roi-total{margin-top:16px;padding:16px;border-radius:14px;display:flex;justify-content:space-between;align-items:center}
+.roi-total.bad{background:var(--red-dim)}
+.roi-total.great{background:var(--green-dim)}
+.roi-total span:first-child{font-weight:700;font-size:13.5px}
+.roi-total span:last-child{font-size:26px;font-weight:900;letter-spacing:-1px}
+.roi-total.bad span:last-child{color:var(--red)}
+.roi-total.great span:last-child{color:var(--green)}
+.roi-result{margin-top:14px;padding:22px;border-radius:var(--r);background:var(--green-dim);border:1px solid var(--green-border);text-align:center}
+.roi-result strong{font-size:30px;font-weight:900;color:var(--green);display:block;letter-spacing:-.5px}
+.roi-result span{font-size:14.5px;color:var(--text-2)}
+/* ══════════ TESTIMONIALS ══════════ */
+.testi{padding:120px 24px}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px}
+.t-card{padding:28px 22px;border-radius:var(--r);background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;transition:.35s}
+.t-card:hover{transform:translateY(-3px);border-color:var(--border-2)}
+.t-stars{color:#fbbf24;font-size:12px;letter-spacing:3px;margin-bottom:12px}
+.t-txt{font-size:15.5px;color:var(--text-2);line-height:1.75;font-style:italic;flex:1;margin-bottom:18px}
+.t-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border)}
+.t-av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--orange),#fbbf24);display:grid;place-items:center;font-weight:900;font-size:14px;color:#fff}
+.t-name{font-weight:700;font-size:15px}
+.t-role{font-size:12.5px;color:var(--text-3)}
+/* ══════════ CTA ══════════ */
+.cta{padding:60px 24px 120px}
+.cta-box{
+  max-width:800px;margin:0 auto;padding:56px 44px;text-align:center;
+  border-radius:var(--r2);position:relative;overflow:hidden;
+  background:var(--surface);border:1px solid var(--orange-border);
+}
+.cta-box::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(242,140,40,0.06),transparent 60%);pointer-events:none;
+}
+.cta-box h2{font-size:clamp(26px,3.5vw,38px);font-weight:900;letter-spacing:-1.5px;line-height:1.12;position:relative;margin-bottom:12px}
+.cta-box p{font-size:17px;color:var(--text-2);max-width:380px;margin:0 auto 28px;line-height:1.65;position:relative}
+.cta-box .btn-p{display:inline-flex;position:relative}
+.cta-g{margin-top:18px;font-family:'Fira Code',monospace;font-size:13px;color:var(--text-3);position:relative}
+/* ══════════ FOOTER ══════════ */
+footer{
+  padding:32px 24px;max-width:1080px;margin:0 auto;
+  border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+footer .left{font-size:13px;color:var(--text-3);line-height:1.7}
+footer .right{display:flex;gap:18px}
+footer .right a{font-size:13px;color:var(--text-3);text-decoration:none;transition:.2s}
+footer .right a:hover{color:var(--text-2)}
+/* ══════════ REVEAL ══════════ */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.v{opacity:1;transform:none}
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:680px){
+  .hero-inner{grid-template-columns:1fr;gap:36px}
+  .h-stats{max-width:380px}
+  .comp-row,.g-cards,.roi-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}.f.s2{grid-column:span 1}
+  .p-grid{grid-template-columns:1fr;max-width:380px;margin-left:auto;margin-right:auto}
+  .p-card.pop{transform:none}.p-card.pop:hover{transform:translateY(-6px)}
+  .sms-row{grid-template-columns:1fr}.sms-vs{display:none}
+  .t-grid{grid-template-columns:1fr}
+  .c-wrap{overflow-x:auto}
+  .n-links a:not(.n-cta){display:none}
+  .addon{flex-direction:column;text-align:center}
+  .comp-end{flex-direction:column;text-align:center}
+  .p-feat{min-height:auto}
+  .g-summary{flex-direction:column;gap:18px}.g-summary-sep{width:40px;height:1px}
+  .cta-box{padding:44px 24px}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <a href="#" class="n-logo"><img src="data:image/png;base64,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" alt="RestoPilot"><span><span class="n-logo-txt">RestoPilot</span><span class="n-logo-sub">by IA Solutions</span></span></a>
+  <div class="n-links">
+    <a href="#gains">Bénéfices</a>
+    <a href="#fonctionnalites">Cockpit</a>
+    <a href="#comparatif">Comparatif</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#demo" class="n-cta">Démo gratuite</a>
+  </div>
+</nav>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-hud"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="h-pill"><span class="h-pill-dot"></span> Conçu à La Réunion, pour La Réunion</div>
+      <h1>Pilotez tout<br>votre restaurant<br>depuis <em>un seul écran</em></h1>
+      <p class="h-sub">RestoPilot réunit caisse, commandes en ligne, écran cuisine, fidélité et SMS dans un seul cockpit. Moins de coûts, plus de vitesse, zéro prise de tête.</p>
+      <div class="h-btns">
+        <a href="#demo" class="btn-p">Réserver une démo →</a>
+        <a href="#tarifs" class="btn-s">Voir les tarifs</a>
+      </div>
+    </div>
+    <div class="h-stats">
+      <div class="h-stat"><div class="h-stat-n or">2%</div><div class="h-stat-l">Au lieu de 30% Uber Eats</div></div>
+      <div class="h-stat"><div class="h-stat-n gr">0€</div><div class="h-stat-l">Par SMS envoyé</div></div>
+      <div class="h-stat"><div class="h-stat-n bl">−30%</div><div class="h-stat-l">Temps de service</div></div>
+      <div class="h-stat"><div class="h-stat-n gr">+20K€</div><div class="h-stat-l">Économisés par an</div></div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ LOCAL COMPETITORS ═══════════ -->
+<section class="local">
+  <div class="wrap">
+    <div class="sec-l rv">Ce qui existe aujourd'hui</div>
+    <h2 class="sec-t rv">À La Réunion, vos options sont limitées</h2>
+    <p class="sec-d rv">Les solutions locales sont restées en 2015. Les nationales ne connaissent pas votre marché.</p>
+    <div class="comp-row">
+      <div class="comp-box rv">
+        <h3>CDM-OI / CaisseNet</h3>
+        <span class="comp-type">Vendeur matériel · 20+ ans · Saint-Denis</span>
+        <ul class="cl">
+          <li><span class="cl-i w">⚠</span>Caisse old-school — pas de cloud, pas d'app mobile</li>
+          <li><span class="cl-i x">✗</span>Aucune commande en ligne — vos clients vont sur Uber Eats</li>
+          <li><span class="cl-i x">✗</span>Pas de SMS intégrés — ni transactionnels, ni marketing</li>
+          <li><span class="cl-i x">✗</span>Pas d'écran cuisine KDS — tickets papier uniquement</li>
+          <li><span class="cl-i w">⚠</span>Fidélité par carte RFID physique — le client la perd, c'est fini</li>
+          <li><span class="cl-i x">✗</span>Aucune analyse de rentabilité par produit</li>
+          <li><span class="cl-i x">✗</span>Pas de boost avis Google automatique</li>
+        </ul>
+      </div>
+      <div class="comp-box rv">
+        <h3>Yableo / Core 2</h3>
+        <span class="comp-type">SaaS généraliste · 79-129€/mois · Sainte-Clotilde</span>
+        <ul class="cl">
+          <li><span class="cl-i w">⚠</span>Généraliste — fleuriste, coiffeur, mode, restaurant… même interface</li>
+          <li><span class="cl-i x">✗</span>Pas de SMS Gateway — aucun SMS transactionnel gratuit</li>
+          <li><span class="cl-i x">✗</span>Pas de timer performance employés en cuisine</li>
+          <li><span class="cl-i x">✗</span>Pas de module SMS marketing intégré</li>
+          <li><span class="cl-i x">✗</span>Pas de calcul rentabilité par plat (coûts production)</li>
+          <li><span class="cl-i x">✗</span>Pas de boost avis Google automatique</li>
+          <li><span class="cl-i o">—</span>Click & collect au plan Business 129€/mois</li>
+        </ul>
+      </div>
+    </div>
+    <div class="comp-end rv">
+      <div class="emoji">🚀</div>
+      <div>
+        <h4>RestoPilot comble tous ces vides</h4>
+        <p>Spécialisé restauration. Interface adaptée à votre métier. SMS à 0€. KDS avec timers. Commande en ligne 2%. Marketing intégré. Support qui se déplace chez vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ GAINS ═══════════ -->
+<section class="gains" id="gains">
+  <div class="wrap">
+    <div class="sec-l rv">Ce que ça change concrètement</div>
+    <h2 class="sec-t rv">Plus d'argent. Moins de stress.<br>Chaque jour.</h2>
+    <p class="sec-d rv">Les chiffres que vos concurrents ne veulent pas que vous voyiez.</p>
+    <div class="g-block rv">
+      <div class="g-block-head"><span>💰</span><h3>Vous gagnez de l'argent</h3></div>
+      <div class="g-cards">
+        <div class="g-card">
+          <div class="g-num gr">+1 400€<span>/mois</span></div>
+          <div class="g-title">Commission 2% au lieu de 30%</div>
+          <p>Sur 5 000€ de commandes en ligne, Uber Eats prend 1 500€. Vous, avec votre propre app : 125€.</p>
+          <div class="g-calc">
+            <div class="g-calc-row"><span>Uber Eats (30%)</span><span class="neg">−1 500€/mois</span></div>
+            <div class="g-calc-row"><span>RestoPilot (2.5%)</span><span class="neg">−125€/mois</span></div>
+            <div class="g-calc-row tot"><span>Vous gardez</span><span class="pos">+1 375€/mois</span></div>
+          </div>
+        </div>
+        <div class="g-card">
+          <div class="g-num gr">+2 000€<span>/mois</span></div>
+          <div class="g-title">SMS marketing → clients qui reviennent</div>
+          <p>500 clients dans votre base. Un SMS « Double points ce week-end » → 75-150 reviennent.</p>
+          <div class="g-calc">
+            <div class="g-calc-row"><span>Pub Instagram (300-400€)</span><span class="neg">3-10 clients</span></div>
+            <div class="g-calc-row"><span>SMS 50€/mois</span><span class="pos">75-150 clients</span></div>
+            <div class="g-calc-row tot"><span>ROI SMS marketing</span><span class="pos">×40</span></div>
+          </div>
+        </div>
+        <div class="g-card">
+          <div class="g-num gr">+350€<span>/mois</span></div>
+          <div class="g-title">SMS transactionnels à 0€</div>
+          <p>5 000 SMS/mois chez la concurrence : 0.07€/SMS = 350€. Chez nous : votre téléphone Android envoie, c'est gratuit.</p>
+          <div class="g-calc">
+            <div class="g-calc-row"><span>API SMS classique</span><span class="neg">−350€/mois</span></div>
+            <div class="g-calc-row"><span>SMS Gateway Android</span><span class="pos">0€/mois</span></div>
+            <div class="g-calc-row tot"><span>Économie pure</span><span class="pos">4 200€/an</span></div>
+          </div>
+        </div>
+        <div class="g-card">
+          <div class="g-num gr">+15%<span> panier moyen</span></div>
+          <div class="g-title">Commande en ligne = paniers plus gros</div>
+          <p>Sans pression de file, le client ajoute dessert, boisson, supplément. Panier en ligne +15% vs comptoir.</p>
+          <div class="g-calc">
+            <div class="g-calc-row"><span>Panier comptoir moyen</span><span>13€</span></div>
+            <div class="g-calc-row"><span>Panier en ligne moyen</span><span class="pos">15€</span></div>
+            <div class="g-calc-row tot"><span>Sur 40 commandes/jour</span><span class="pos">+80€/jour</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="g-block rv">
+      <div class="g-block-head"><span>⏱️</span><h3>Vous gagnez du temps</h3></div>
+      <div class="g-cards">
+        <div class="g-card"><div class="g-num bl">−30%<span> temps de service</span></div><div class="g-title">KDS + timers = cuisine plus rapide</div><p>Le pizzaiolo voit les priorités. Le patron repère qui ralentit. Code couleur auto : vert &lt;5min, rouge &gt;15min.</p></div>
+        <div class="g-card"><div class="g-num bl">2h<span> gagnées/jour</span></div><div class="g-title">Zéro double saisie, tout synchronisé</div><p>Comptoir, en ligne, livraison, salle — tout dans le même flux. Cuisine = une file. Compta = un rapport.</p></div>
+        <div class="g-card"><div class="g-num bl">2 min<span> par campagne</span></div><div class="g-title">Marketing depuis la caisse</div><p>Sélectionnez « clients inactifs 30j », écrivez « -20% ce week-end », envoyez. Pas de community manager.</p></div>
+        <div class="g-card"><div class="g-num bl">0<span> appels « c'est prêt ? »</span></div><div class="g-title">Le client sait où en est sa commande</div><p>SMS auto : « En préparation », « Prête ! ». Le client arrive quand c'est prêt. Plus de queue, plus de râleurs.</p></div>
+      </div>
+    </div>
+    <div class="g-summary rv">
+      <div class="g-summary-item"><strong>+20 000€/an</strong><span>économies & revenus</span></div>
+      <div class="g-summary-sep"></div>
+      <div class="g-summary-item"><strong>2h/jour</strong><span>de gestion en moins</span></div>
+      <div class="g-summary-sep"></div>
+      <div class="g-summary-item"><strong>−30%</strong><span>temps de service</span></div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ FEATURES ═══════════ -->
+<section class="features" id="fonctionnalites">
+  <div class="wrap">
+    <div class="sec-l rv">Votre cockpit</div>
+    <h2 class="sec-t rv">Chaque instrument de bord<br>vous fait gagner de l'argent</h2>
+    <p class="sec-d rv">Pas de gadgets. Chaque module augmente votre marge ou réduit votre charge.</p>
+    <div class="f-grid">
+      <div class="f s2 glow rv">
+        <div class="f-ico">🖥️</div>
+        <h3>Caisse tactile conçue pour votre métier</h3>
+        <p>Le pizzaiolo voit S/M/L/XL avec ses garnitures. Le fast-food voit ses formules. Le snack voit ses combos. Pas un écran générique pour fleuristes et coiffeurs. Paiement multi-mode : espèces, CB, ticket resto, mixte, fractionné.</p>
+        <span class="f-tag ex">Exclusif — aucun concurrent ne le fait</span>
+        <span class="f-metric">→ Prise de commande 2× plus rapide, zéro erreur</span>
+      </div>
+      <div class="f rv">
+        <div class="f-ico">📱</div>
+        <h3>Commande en ligne à 2%</h3>
+        <p>App client sur mesure. Click & collect, livraison, commande table QR. Commission 2-2.5% au lieu des 30% d'Uber Eats.</p>
+        <span class="f-tag fr">Inclus dès Pro</span>
+        <span class="f-metric">→ +1 375€/mois récupérés vs Uber Eats</span>
+      </div>
+      <div class="f rv">
+        <div class="f-ico">👨‍🍳</div>
+        <h3>Écran cuisine KDS</h3>
+        <p>Priorités auto, timer par plat et par employé. Le patron voit qui est rapide. Ticket lisible à 2 mètres.</p>
+        <span class="f-tag ex">Timer employé — Exclusif</span>
+        <span class="f-metric">→ −30% temps de service, plus de rotation</span>
+      </div>
+      <div class="f s2 glow rv">
+        <div class="f-ico">💬</div>
+        <h3>SMS à 0€ — Technologie propriétaire</h3>
+        <p>App Android sur un vieux téléphone = passerelle SMS. « Votre commande est prête ! » envoyé depuis votre propre numéro, gratuitement. E-ticket digital avec barre de fidélité. Concurrents : 0.07€/SMS = 350€/mois.</p>
+        <span class="f-tag ex">Exclusif RestoPilot — CDM-OI, Yableo, Innovorder ne l'ont pas</span>
+        <span class="f-metric">→ 4 200€/an économisés vs API SMS classique</span>
+      </div>
+      <div class="f rv"><div class="f-ico">⭐</div><h3>Fidélité digitale</h3><p>10 pizzas = 1 gratuite. Reconnaissance auto par téléphone en 3 sec. Progression sur l'e-ticket. Pas de carte RFID à perdre.</p></div>
+      <div class="f rv"><div class="f-ico">⭐</div><h3>Boost avis Google</h3><p>SMS auto 2h après. Filtre satisfaction (négatif = feedback privé, positif = Google). +2 points fidélité.</p><span class="f-tag nw">Nouveau</span><span class="f-metric">→ 90-150 avis/mois · Note ×1.2</span></div>
+      <div class="f rv"><div class="f-ico">📊</div><h3>Rentabilité par produit</h3><p>Coût production réel, marge par plat, analyse horaire, recommandation nombre d'employés.</p><span class="f-tag ex">Exclusif</span></div>
+      <div class="f rv"><div class="f-ico">📦</div><h3>Stocks temps réel</h3><p>Compteur pâtons, suivi ingrédients, alerte seuil bas. Blocage auto du site quand c'est épuisé.</p></div>
+      <div class="f rv"><div class="f-ico">🗺️</div><h3>Plan de salle</h3><p>Tables drag & drop, fusion groupes, badge pulsant AJOUT. Zéro erreur de service.</p></div>
+      <div class="f rv"><div class="f-ico">🔒</div><h3>NF525 + mode hors-ligne</h3><p>Certifié via Hiboutik. TVA 2.1%/8.5% DOM-TOM. Mode dégradé si internet tombe — aucune vente perdue.</p></div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ COMPARE ═══════════ -->
+<section class="compare" id="comparatif">
+  <div class="wrap">
+    <div class="sec-l rv">Comparatif complet</div>
+    <h2 class="sec-t rv">Local et national, côte à côte</h2>
+    <p class="sec-d rv">Toutes les solutions disponibles. Jugez par vous-même.</p>
+    <div class="c-wrap rv">
+      <table class="c-tbl">
+        <thead><tr><th></th><th class="us">RestoPilot</th><th>CDM-OI</th><th>Yableo 129€</th><th>Innovorder</th><th>Lightspeed</th></tr></thead>
+        <tbody>
+          <tr><td>Interface adaptée au métier</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗ Généraliste</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Timer performance employés</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>SMS transactionnels à 0€</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Écran cuisine KDS</td><td class="us"><span class="ty">✓</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="ty">✓</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Commande en ligne intégrée</td><td class="us"><span class="ty">✓</span> 2.5%</td><td><span class="tn">✗</span></td><td><span class="ty">✓</span></td><td>Sur devis</td><td><span class="ty">✓</span></td></tr>
+          <tr><td>Fidélité digitale intégrée</td><td class="us"><span class="ty">✓</span></td><td>RFID physique</td><td>Basique</td><td>Tiers payant</td><td><span class="ty">✓</span></td></tr>
+          <tr><td>Boost avis Google auto</td><td class="us"><span class="ty">✓</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Rentabilité par produit</td><td class="us"><span class="ty">✓</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td>149€+</td></tr>
+          <tr><td>Plan de salle</td><td class="us"><span class="ty">✓</span></td><td>Basique</td><td><span class="ty">✓</span></td><td><span class="tn">✗</span></td><td><span class="ty">✓</span></td></tr>
+          <tr><td>Stocks temps réel</td><td class="us"><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td></tr>
+          <tr><td>Mode hors-ligne</td><td class="us"><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td>Payant</td></tr>
+          <tr><td>TVA DOM-TOM native</td><td class="us"><span class="ty">✓</span> Auto</td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td>Manuelle</td><td>Manuelle</td></tr>
+          <tr><td>Support sur site La Réunion</td><td class="us"><span class="ty">✓</span> Chez vous</td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="tn">✗</span> Paris</td><td><span class="tn">✗</span> Montréal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ SMS MARKETING ═══════════ -->
+<section class="sms" id="sms">
+  <div class="wrap">
+    <div class="sec-l rv">SMS Marketing</div>
+    <h2 class="sec-t rv">Le canal marketing le plus<br>rentable pour un restaurant</h2>
+    <p class="sec-d rv">Un SMS à vos clients existants convertit 30× mieux qu'une pub Instagram. Ni CDM-OI, ni Yableo ne le proposent. RestoPilot si.</p>
+    <div class="sms-row">
+      <div class="sms-c lose rv">
+        <div class="sms-c-l">Hey Pongo + caisse classique</div>
+        <div class="sms-c-p">~430€</div>
+        <div class="sms-c-sub">par mois · marketing seulement</div>
+        <ul class="sms-c-list"><li>Hey Pongo : 79-149€/mois</li><li>SMS : 5 000 × 0.07€ = 350€</li><li>+ votre caisse en plus</li><li>Numéro court impersonnel</li></ul>
+      </div>
+      <div class="sms-vs">VS</div>
+      <div class="sms-c win rv">
+        <div class="sms-c-l">RestoPilot</div>
+        <div class="sms-c-p">50€</div>
+        <div class="sms-c-sub">par mois · tout illimité</div>
+        <ul class="sms-c-list"><li>Campagnes ciblées illimitées</li><li>Win-back clients inactifs 30/60/90j</li><li>SMS anniversaire automatique</li><li>Boost avis Google intégré</li><li>Promo jour calme depuis la caisse</li><li>Envoi depuis votre propre numéro</li></ul>
+      </div>
+    </div>
+    <div class="sms-save rv"><strong>4 560€ économisés par an</strong><span>par rapport à Hey Pongo + SMS par API classique</span></div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ PRICING ═══════════ -->
+<section class="pricing" id="tarifs">
+  <div class="wrap">
+    <div class="p-head rv">
+      <div class="sec-l" style="justify-content:center;display:flex">Tarifs</div>
+      <h2 class="sec-t">Simple. Transparent.<br>Pas de surprises.</h2>
+      <p class="sec-d">Sans engagement · Formation incluse · Support local</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-card rv">
+        <div class="p-tier">Starter</div>
+        <div class="p-amt">99€ <small>/mois HT</small></div>
+        <div class="p-com">&nbsp;</div><div class="p-div"></div>
+        <ul class="p-feat">
+          <li><span class="p-dot y">✓</span>Caisse tactile sur mesure</li>
+          <li><span class="p-dot y">✓</span>Produits & suppléments illimités</li>
+          <li><span class="p-dot y">✓</span>KDS cuisine + timers</li>
+          <li><span class="p-dot y">✓</span>Paiement multi-mode</li>
+          <li><span class="p-dot y">✓</span>SMS transactionnels (0€)</li>
+          <li><span class="p-dot y">✓</span>Fidélité digitale</li>
+          <li><span class="p-dot y">✓</span>Rapports X/Y/Z — NF525</li>
+          <li><span class="p-dot y">✓</span>Gestion des stocks</li>
+          <li><span class="p-dot y">✓</span>1 utilisateur</li>
+          <li><span class="p-dot y">✓</span>Support email</li>
+          <li class="off"><span class="p-dot n">—</span>Commande en ligne</li>
+          <li class="off"><span class="p-dot n">—</span>Plan de salle</li>
+        </ul>
+        <a href="#demo" class="p-btn ghost">Choisir Starter</a>
+      </div>
+      <div class="p-card pop rv">
+        <div class="pop-b">★ Recommandé</div>
+        <div class="p-tier">Pro</div>
+        <div class="p-amt">179€ <small>/mois HT</small></div>
+        <div class="p-com">+ 2.5% sur commandes en ligne</div><div class="p-div"></div>
+        <ul class="p-feat">
+          <li><span class="p-dot y">✓</span>Tout le plan Starter</li>
+          <li><span class="p-dot y">✓</span>App commande en ligne</li>
+          <li><span class="p-dot y">✓</span>Click & collect + livraison</li>
+          <li><span class="p-dot y">✓</span>Plan de salle interactif</li>
+          <li><span class="p-dot y">✓</span>Fusion de tables</li>
+          <li><span class="p-dot y">✓</span>Rentabilité par produit</li>
+          <li><span class="p-dot y">✓</span>Analyse horaire</li>
+          <li><span class="p-dot y">✓</span>Boost avis Google</li>
+          <li><span class="p-dot y">✓</span>3 utilisateurs</li>
+          <li><span class="p-dot y">✓</span>Support téléphone</li>
+          <li class="off"><span class="p-dot n">—</span>Commande table QR</li>
+          <li class="off"><span class="p-dot n">—</span>Menu tablette salle</li>
+        </ul>
+        <a href="#demo" class="p-btn fill">Choisir Pro →</a>
+      </div>
+      <div class="p-card rv">
+        <div class="p-tier">Premium</div>
+        <div class="p-amt">249€ <small>/mois HT</small></div>
+        <div class="p-com">+ 2% sur commandes en ligne</div><div class="p-div"></div>
+        <ul class="p-feat">
+          <li><span class="p-dot y">✓</span>Tout le plan Pro</li>
+          <li><span class="p-dot y">✓</span>Commande à table QR code</li>
+          <li><span class="p-dot y">✓</span>Menu interactif tablette</li>
+          <li><span class="p-dot y">✓</span>Multi-langues FR/EN/ES/DE</li>
+          <li><span class="p-dot y">✓</span>Interface 100% personnalisée</li>
+          <li><span class="p-dot y">✓</span>Utilisateurs illimités</li>
+          <li><span class="p-dot y">✓</span>Support prioritaire</li>
+          <li><span class="p-dot y">✓</span>Formation sur site</li>
+          <li><span class="p-dot y">✓</span>Mises à jour prioritaires</li>
+          <li><span class="p-dot y">✓</span>Personnalisations sur demande</li>
+          <li>&nbsp;</li><li>&nbsp;</li>
+        </ul>
+        <a href="#demo" class="p-btn ghost">Choisir Premium</a>
+      </div>
+    </div>
+    <div class="addon rv">
+      <div><h3>📣 Module SMS Marketing — +50€/mois</h3><p>Campagnes illimitées, win-back, anniversaire, boost avis Google, promo jour calme. Disponible sur tous les plans. ROI moyen : 50€ investis → 2 000€+ de CA.</p></div>
+      <div class="addon-v"><strong>+50€</strong><span>/mois HT</span></div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ ROI ═══════════ -->
+<section class="roi" id="roi">
+  <div class="wrap">
+    <div class="sec-l rv">Retour sur investissement</div>
+    <h2 class="sec-t rv">Le calcul que votre<br>comptable va adorer</h2>
+    <p class="sec-d rv">Restaurateur faisant 5 000€/mois de commandes en ligne.</p>
+    <div class="roi-grid">
+      <div class="roi-card rv">
+        <h3>😰 Uber Eats + Yableo + Hey Pongo</h3>
+        <div class="roi-row"><span class="roi-row-l">CA commandes en ligne</span><span class="roi-row-v">5 000€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Commission Uber Eats (30%)</span><span class="roi-row-v neg">−1 500€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Yableo Business (caisse)</span><span class="roi-row-v neg">−129€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Hey Pongo (fidélité + CRM)</span><span class="roi-row-v neg">−119€</span></div>
+        <div class="roi-row"><span class="roi-row-l">SMS marketing (5 000 × 0.07€)</span><span class="roi-row-v neg">−350€</span></div>
+        <div class="roi-total bad"><span>Il vous reste</span><span>2 902€</span></div>
+      </div>
+      <div class="roi-card good rv">
+        <h3>😎 RestoPilot Pro + SMS Marketing</h3>
+        <div class="roi-row"><span class="roi-row-l">CA commandes en ligne</span><span class="roi-row-v">5 000€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Commission RestoPilot (2.5%)</span><span class="roi-row-v neg">−125€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Abonnement Pro (tout inclus)</span><span class="roi-row-v neg">−179€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Module SMS Marketing</span><span class="roi-row-v neg">−50€</span></div>
+        <div class="roi-row"><span class="roi-row-l">Coût SMS envoi</span><span class="roi-row-v pos">0€</span></div>
+        <div class="roi-total great"><span>Il vous reste</span><span>4 646€</span></div>
+      </div>
+    </div>
+    <div class="roi-result rv"><strong>+1 744€ / mois dans votre poche</strong><span>Soit 20 928€ de plus par an — à chiffre d'affaires identique</span></div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="testi">
+  <div class="wrap">
+    <div class="sec-l rv">Témoignages</div>
+    <h2 class="sec-t rv">Ils ont fait le switch</h2>
+    <div class="t-grid">
+      <div class="t-card rv">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-txt">"Je perdais 1 500€/mois avec Uber Eats. Maintenant mes clients commandent sur mon app. La commission à 2% change tout. Et le support vient chez moi à Saint-Pierre."</div>
+        <div class="t-author"><div class="t-av">M</div><div><div class="t-name">Marco P.</div><div class="t-role">Pizzeria — Saint-Pierre</div></div></div>
+      </div>
+      <div class="t-card rv">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-txt">"Avant j'avais CDM-OI, des tickets papier en cuisine et zéro visibilité. Avec les timers KDS, je vois la perf de chaque employé. Mon temps de service a baissé de 30%."</div>
+        <div class="t-author"><div class="t-av">S</div><div><div class="t-name">Sophie L.</div><div class="t-role">Fast-food — Saint-Paul</div></div></div>
+      </div>
+      <div class="t-card rv">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-txt">"En 2 mois, 90 avis Google avec le boost auto. Passé de 3.8 à 4.6 étoiles. Le SMS à 50€ me rapporte plus que mes 400€ de pub Instagram. Y'a pas photo."</div>
+        <div class="t-author"><div class="t-av">K</div><div><div class="t-name">Karim D.</div><div class="t-role">Snack — Le Tampon</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta" id="demo">
+  <div class="cta-box rv">
+    <h2>Prêt à prendre les commandes<br>de votre restaurant ?</h2>
+    <p>Démo gratuite 30 min, sans engagement. On se déplace chez vous à La Réunion.</p>
+    <a href="tel:+262692013540" class="btn-p">📞 0692 01 35 40 — Appelez-nous →</a>
+    <div class="cta-g">✓ Sans engagement · ✓ Formation incluse · ✓ Support sur site</div>
+  </div>
+</section>
+<footer>
+  <div class="left">© 2026 RestoPilot by IA Solutions — La Réunion, France<br>NF525 certifié via Hiboutik</div>
+  <div class="right"><a href="#">Mentions légales</a><a href="#">CGV</a><a href="#">Confidentialité</a><a href="mailto:contact@ia-solutions.re">Contact</a></div>
+</footer>
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}})
+},{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
