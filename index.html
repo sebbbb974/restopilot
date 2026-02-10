@@ -456,6 +456,70 @@ footer .right a:hover{color:var(--text-2)}
 .secu-big{font-size:36px;font-weight:900;letter-spacing:-1.5px;color:var(--orange);display:block;line-height:1}
 .secu-label{font-family:'Fira Code',monospace;font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;display:block}
 
+/* ══════════ TRICKS REVEAL ══════════ */
+.tricks-box{
+  margin-top:56px;padding:48px 36px;border-radius:var(--r2);
+  background:linear-gradient(180deg,rgba(220,38,38,0.04),var(--surface) 20%);
+  border:1px solid rgba(220,38,38,0.15);position:relative;overflow:hidden;
+}
+.tricks-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,#ef4444,transparent);
+}
+.tricks-header{text-align:center;margin-bottom:40px}
+.tricks-badge{
+  display:inline-block;font-size:11px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;color:#ef4444;
+  padding:6px 18px;border-radius:20px;
+  background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);
+  margin-bottom:18px;
+}
+.tricks-title{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+.tricks-title span{font-size:18px;font-weight:500;color:var(--text-3);display:block;margin-top:6px;letter-spacing:0}
+.tricks-intro{font-size:15.5px;color:var(--text-2);max-width:580px;margin:0 auto;line-height:1.65}
+.tricks-intro strong{color:var(--text);font-weight:700}
+.tricks-grid{display:flex;flex-direction:column;gap:16px}
+.trick{
+  display:flex;gap:20px;padding:28px 24px;border-radius:var(--r);
+  background:var(--bg);border:1px solid var(--border);
+  transition:.3s ease;
+}
+.trick:hover{border-color:var(--border-2);box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+.trick-num{
+  font-family:'Fira Code',monospace;font-size:32px;font-weight:900;
+  color:rgba(239,68,68,0.2);line-height:1;flex-shrink:0;min-width:48px;
+}
+.trick-body{flex:1}
+.trick-body h4{font-size:18px;font-weight:900;letter-spacing:-.3px;margin-bottom:12px;color:#fff}
+.trick-scene{margin-bottom:16px;padding:16px 18px;border-radius:8px;background:rgba(255,255,255,0.02);border-left:3px solid var(--border-2)}
+.trick-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.trick-scene p{font-size:14px;color:var(--text-2);line-height:1.7;margin:0}
+.trick-scene strong{color:var(--text);font-weight:700}
+.trick-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.trick-mono{
+  font-size:12.5px;line-height:1.55;padding:12px 14px;border-radius:8px;
+}
+.trick-mono span{display:block;font-weight:800;font-size:11px;letter-spacing:.5px;margin-bottom:4px}
+.trick-fail{
+  background:rgba(220,38,38,0.05);border:1px solid rgba(220,38,38,0.12);color:var(--text-2);
+}
+.trick-fail span{color:#ef4444}
+.trick-catch{
+  background:rgba(242,140,40,0.05);border:1px solid var(--orange-border);color:var(--text-2);
+}
+.trick-catch span{color:var(--orange)}
+.tricks-footer{margin-top:24px}
+.tricks-total{
+  display:flex;align-items:center;gap:18px;
+  padding:22px 28px;border-radius:var(--r);
+  background:linear-gradient(135deg,rgba(220,38,38,0.06),rgba(242,140,40,0.06));
+  border:1px solid rgba(220,38,38,0.15);
+}
+.tricks-total-ico{font-size:32px;flex-shrink:0}
+.tricks-total-txt{display:flex;flex-direction:column;gap:4px}
+.tricks-total-txt strong{font-size:15px;color:#fff;line-height:1.4}
+.tricks-total-txt span{font-size:13.5px;color:var(--text-2);line-height:1.55}
+
 /* ══════════ SECURITY PRICING ══════════ */
 .sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
 .sp-card{
@@ -550,6 +614,21 @@ footer .right a:hover{color:var(--text-2)}
   .secu-big{font-size:28px}
   .secu-label{font-size:10px}
   .sp-grid{grid-template-columns:1fr;gap:14px;max-width:380px;margin:8px auto 0}
+  .tricks-box{padding:28px 16px;margin-top:40px}
+  .tricks-title{font-size:22px}
+  .tricks-title span{font-size:15px}
+  .tricks-intro{font-size:14px}
+  .tricks-header{margin-bottom:28px}
+  .trick{flex-direction:column;gap:8px;padding:20px 16px}
+  .trick-num{font-size:24px;min-width:auto}
+  .trick-body h4{font-size:16px}
+  .trick-scene{padding:12px 14px}
+  .trick-scene p{font-size:13px}
+  .trick-row{grid-template-columns:1fr;gap:8px}
+  .trick-mono{font-size:12px}
+  .tricks-total{flex-direction:column;text-align:center;gap:12px;padding:18px 16px}
+  .tricks-total-txt strong{font-size:14px}
+  .tricks-total-txt span{font-size:12.5px}
   .sp-card{padding:28px 22px}
   .sp-name{font-size:20px}
   .sp-amount{font-size:36px}
@@ -795,6 +874,118 @@ footer .right a:hover{color:var(--text-2)}
           <li class="secu-good">Zéro maintenance, zéro panne</li>
           <li class="secu-good">Couvre 100% des méthodes de vol</li>
         </ul>
+      </div>
+    </div>
+
+    <!-- ARNAQUES REVEAL -->
+    <div class="tricks-box rv">
+      <div class="tricks-header">
+        <div class="tricks-badge">⚠️ CE QUE VOTRE VENDEUR DE MONNAYEUR NE VOUS DIT PAS</div>
+        <h3 class="tricks-title">6 façons dont un employé peut vous voler<br><span>malgré un monnayeur à 8 000€</span></h3>
+        <p class="tricks-intro">On ne dit pas que vos employés volent. On dit que <strong>si l'un d'eux le faisait</strong>, voici exactement comment il s'y prendrait — et pourquoi votre monnayeur ne verrait rien.</p>
+      </div>
+      <div class="tricks-grid">
+
+        <div class="trick rv">
+          <div class="trick-num">01</div>
+          <div class="trick-body">
+            <h4>L'annulation après encaissement</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>Votre employé encaisse un client — 18€ en espèces, le monnayeur rend la monnaie normalement. Le client part. <strong>30 secondes plus tard, l'employé annule la vente.</strong> Les 18€ sont toujours dans le monnayeur, mais la vente n'existe plus. En fin de journée, il y a 18€ "en trop" dans la machine — il les récupère au moment du comptage.</p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> La caisse est équilibrée. Zéro alerte. Le patron ne voit rien.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Annulation tracée 30s après paiement espèces → alerte immédiate + vidéo du moment exact.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick rv">
+          <div class="trick-num">02</div>
+          <div class="trick-body">
+            <h4>La vente fantôme</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>Un client commande un tacos à 9€. L'employé ne tape rien du tout. Il encaisse les 9€ cash directement et les met dans sa poche. <strong>Le monnayeur ne sait même pas qu'il y a eu un client.</strong> Pas de ticket, pas de trace, pas d'écart de caisse.</p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> Impossible à détecter. L'argent n'a jamais touché la machine.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Détection de présence au comptoir sans transaction → flag automatique + vidéo horodatée.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick rv">
+          <div class="trick-num">03</div>
+          <div class="trick-body">
+            <h4>Le sous-enregistrement</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>Le client commande un menu complet à 14€ (burger + frites + boisson). L'employé tape seulement le burger à 8€. Le client paie 14€, le monnayeur rend la monnaie sur 8€. L'employé complète le rendu monnaie de sa poche si besoin. <strong>Résultat : 6€ de différence, la caisse du monnayeur est parfaitement juste.</strong></p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> Il a rendu la monnaie sur 8€ comme demandé. Tout est correct pour lui.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Ticket moyen 30% plus bas que les collègues sur le même créneau → alerte pattern + vidéo pour vérifier les plateaux.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick rv">
+          <div class="trick-num">04</div>
+          <div class="trick-body">
+            <h4>Le remboursement fictif</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>L'employé crée un remboursement : "Le client est revenu, sa pizza était froide." Le monnayeur sort 15€. <strong>Sauf que le client n'est jamais revenu.</strong> L'employé empoche les 15€. Le soir, la caisse est juste car le remboursement est enregistré comme légitime.</p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> Il a exécuté l'ordre de remboursement. Tout est normal pour la machine.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Remboursement à 15h42 mais personne au comptoir à ce moment → flag immédiat + vidéo. Motif obligatoire tracé.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick rv">
+          <div class="trick-num">05</div>
+          <div class="trick-body">
+            <h4>Les remises entre amis</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>Les potes de l'employé passent au resto. L'employé tape une remise "fidélité -50%" ou met un article en "offert". Ses amis mangent pour 8€ au lieu de 16€. L'employé n'empoche rien directement, <strong>mais c'est 8€ de marge perdue pour vous à chaque fois.</strong> Sur un mois, ça chiffre vite.</p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> La remise est enregistrée, le montant encaissé est correct. Rien à signaler.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Taux de remises anormal par employé → alerte. Chaque offert et remise tracés avec motif obligatoire + vidéo du client.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trick rv">
+          <div class="trick-num">06</div>
+          <div class="trick-body">
+            <h4>Le vol au changement d'équipe</h4>
+            <div class="trick-scene">
+              <div class="trick-label">Le scénario</div>
+              <p>L'employé du midi empoche 20€ en utilisant une des techniques ci-dessus. Il ne ferme pas la caisse — il laisse l'équipe du soir prendre le relais. Le soir, l'écart de -20€ est constaté, <strong>mais impossible de savoir si c'est le midi ou le soir.</strong> Personne n'est responsable, le vol se dilue.</p>
+            </div>
+            <div class="trick-row">
+              <div class="trick-mono trick-fail"><span>🪙 Monnayeur</span> L'écart est global sur la journée. Aucun moyen de savoir qui a créé le trou.</div>
+              <div class="trick-mono trick-catch"><span>🛡️ RestoPilot</span> Session individuelle par employé. Comptage obligatoire à chaque changement d'équipe. L'écart est attribué au bon service, à la bonne personne.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tricks-footer rv">
+        <div class="tricks-total">
+          <div class="tricks-total-ico">🧮</div>
+          <div class="tricks-total-txt">
+            <strong>Un employé qui utilise 2-3 de ces techniques peut facilement voler 20 à 50€ par jour sans se faire repérer.</strong>
+            <span>Sur un an, ça représente 7 300€ à 18 250€ de pertes — soit plus que le prix de votre monnayeur. Et votre monnayeur n'aura rien vu.</span>
+          </div>
+        </div>
       </div>
     </div>
 
