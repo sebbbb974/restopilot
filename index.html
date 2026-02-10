@@ -408,6 +408,113 @@ footer .left{font-size:13px;color:var(--text-3);line-height:1.7}
 footer .right{display:flex;gap:18px}
 footer .right a{font-size:13px;color:var(--text-3);text-decoration:none;transition:.2s}
 footer .right a:hover{color:var(--text-2)}
+/* ══════════ SÉCURITÉ CAISSE ══════════ */
+.secu{padding:120px 24px}
+.secu-vs{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;
+  margin-top:52px;border-radius:var(--r2);overflow:hidden;
+  border:1px solid var(--border-2);
+}
+.secu-vs-col{padding:36px 28px}
+.secu-old{background:rgba(220,38,38,0.04);border-right:1px solid var(--border)}
+.secu-new{background:rgba(242,140,40,0.04)}
+.secu-vs-head{font-size:18px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+.secu-vs-price{font-family:'Fira Code',monospace;font-size:14px;color:var(--text-3);margin-bottom:20px}
+.secu-vs-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.secu-bad{font-size:14.5px;color:var(--text-2);display:flex;align-items:flex-start;gap:8px}
+.secu-bad::before{content:'✗';color:#ef4444;font-weight:700;font-size:13px;flex-shrink:0;margin-top:2px}
+.secu-good{font-size:14.5px;color:var(--text-2);display:flex;align-items:flex-start;gap:8px}
+.secu-good::before{content:'✓';color:var(--orange);font-weight:700;font-size:13px;flex-shrink:0;margin-top:2px}
+.secu-vs-badge{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface);padding:0 18px;
+  font-family:'Fira Code',monospace;font-size:14px;font-weight:700;
+  color:var(--text-3);letter-spacing:2px;
+}
+.secu-sub{
+  font-size:22px;font-weight:800;letter-spacing:-.5px;
+  margin-top:56px;margin-bottom:28px;text-align:center;
+}
+.secu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.secu-card{
+  padding:28px 22px;border-radius:var(--r);
+  background:var(--surface);border:1px solid var(--border);
+  transition:.4s cubic-bezier(.16,1,.3,1);
+}
+.secu-card:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.secu-ico{font-size:28px;margin-bottom:12px}
+.secu-card h4{font-size:16px;font-weight:800;letter-spacing:-.2px;margin-bottom:6px}
+.secu-card p{font-size:13.5px;color:var(--text-2);line-height:1.65}
+.secu-card strong{color:var(--text);font-weight:700}
+.secu-bottom{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  margin-top:40px;padding:32px 24px;border-radius:var(--r2);
+  background:linear-gradient(135deg,rgba(242,140,40,0.06),var(--surface) 40%);
+  border:1px solid var(--orange-border);
+}
+.secu-bottom-stat{text-align:center}
+.secu-big{font-size:36px;font-weight:900;letter-spacing:-1.5px;color:var(--orange);display:block;line-height:1}
+.secu-label{font-family:'Fira Code',monospace;font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;display:block}
+
+/* ══════════ SECURITY PRICING ══════════ */
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.sp-card{
+  padding:32px 24px;border-radius:var(--r2);
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;flex-direction:column;position:relative;
+  transition:.4s cubic-bezier(.16,1,.3,1);
+}
+.sp-card:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.sp-pop{border-color:var(--orange);background:linear-gradient(180deg,rgba(242,140,40,0.06),var(--surface) 30%)}
+.sp-pop:hover{border-color:var(--orange)}
+.sp-badge-pop{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--orange);color:#000;font-size:11px;font-weight:800;
+  padding:4px 16px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;
+}
+.sp-name{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px}
+.sp-target{font-size:13px;color:var(--text-3);margin-bottom:18px;font-family:'Fira Code',monospace;letter-spacing:.5px}
+.sp-price{margin-bottom:6px;display:flex;align-items:baseline;gap:4px}
+.sp-amount{font-size:42px;font-weight:900;letter-spacing:-2px;color:var(--orange)}
+.sp-per{font-size:16px;color:var(--text-3);font-weight:600}
+.sp-install{font-size:13.5px;color:var(--text-2);margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.sp-feat{list-style:none;display:flex;flex-direction:column;gap:9px;flex:1;margin-bottom:20px}
+.sp-feat li{font-size:13.5px;color:var(--text-2);display:flex;align-items:flex-start;gap:8px}
+.sp-feat li::before{content:'✓';color:var(--blue);font-weight:700;font-size:12px;flex-shrink:0;margin-top:2px}
+.sp-feat li:first-child::before{content:'⭐';font-size:11px}
+.sp-total{
+  font-size:13px;color:var(--text-3);text-align:center;
+  padding:12px;border-radius:8px;background:rgba(74,154,222,0.06);
+  border:1px solid rgba(74,154,222,0.12);font-family:'Fira Code',monospace;
+}
+
+/* ══════════ SECURITY ROI ══════════ */
+.secu-roi{margin-top:56px;padding:44px 36px;border-radius:var(--r2);background:var(--surface);border:1px solid var(--border)}
+.secu-roi-title{font-size:24px;font-weight:900;letter-spacing:-.5px;text-align:center;margin-bottom:8px}
+.secu-roi-intro{font-size:15px;color:var(--text-2);text-align:center;max-width:600px;margin:0 auto 36px;line-height:1.65}
+.roi-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;border-radius:var(--r);overflow:hidden;border:1px solid var(--border-2)}
+.roi-col{padding:28px 22px}
+.roi-old{background:rgba(220,38,38,0.03)}
+.roi-new{background:rgba(242,140,40,0.03)}
+.roi-col-head{font-size:16px;font-weight:800;margin-bottom:20px;line-height:1.4}
+.roi-col-head span{font-size:12px;font-weight:500;color:var(--text-3)}
+.roi-vs{display:flex;align-items:center;justify-content:center;background:var(--bg);padding:0 16px;font-family:'Fira Code',monospace;font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:2px}
+.roi-lines{display:flex;flex-direction:column;gap:8px}
+.roi-line{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-2);padding:8px 12px;border-radius:6px;background:rgba(255,255,255,0.02)}
+.roi-line span{flex:1}
+.roi-line strong{font-family:'Fira Code',monospace;font-size:12px;text-align:right;white-space:nowrap}
+.roi-line-total{background:rgba(255,255,255,0.05);font-weight:700}
+.roi-line-total span,.roi-line-total strong{color:var(--text)}
+.roi-line-danger strong{color:#ef4444}
+.roi-line-win strong{color:var(--orange)}
+.roi-coverage{margin-top:16px;text-align:center;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px;border-radius:8px;background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.15);color:#ef4444}
+.roi-savings{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.roi-save-card{display:flex;align-items:center;gap:14px;padding:18px 16px;border-radius:var(--r);background:var(--bg);border:1px solid var(--border)}
+.roi-save-ico{font-size:28px;flex-shrink:0}
+.roi-save-txt{display:flex;flex-direction:column;gap:2px}
+.roi-save-txt strong{font-size:13px;font-weight:800;letter-spacing:-.2px}
+.roi-save-txt span{font-size:12px;color:var(--text-3);line-height:1.4}
+
 /* ══════════ REVEAL ══════════ */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .rv.v{opacity:1;transform:none}
@@ -428,6 +535,36 @@ footer .right a:hover{color:var(--text-2)}
   .p-feat{min-height:auto}
   .g-summary{flex-direction:column;gap:18px}.g-summary-sep{width:40px;height:1px}
   .cta-box{padding:44px 24px}
+  .secu{padding:60px 16px}
+  .secu-vs{grid-template-columns:1fr;margin-top:36px}
+  .secu-old{border-right:none;border-bottom:1px solid var(--border)}
+  .secu-vs-badge{padding:12px 0;font-size:12px}
+  .secu-vs-col{padding:28px 22px}
+  .secu-sub{font-size:18px;margin-top:40px;margin-bottom:20px}
+  .secu-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .secu-card{padding:22px 18px}
+  .secu-ico{font-size:24px;margin-bottom:8px}
+  .secu-card h4{font-size:14.5px}
+  .secu-card p{font-size:12.5px}
+  .secu-bottom{grid-template-columns:1fr 1fr;gap:10px;padding:24px 18px}
+  .secu-big{font-size:28px}
+  .secu-label{font-size:10px}
+  .sp-grid{grid-template-columns:1fr;gap:14px;max-width:380px;margin:8px auto 0}
+  .sp-card{padding:28px 22px}
+  .sp-name{font-size:20px}
+  .sp-amount{font-size:36px}
+  .sp-pop{order:-1}
+  .secu-roi{margin-top:40px;padding:28px 18px}
+  .secu-roi-title{font-size:20px}
+  .secu-roi-intro{font-size:14px}
+  .roi-compare{grid-template-columns:1fr}
+  .roi-old{border-bottom:1px solid var(--border)}
+  .roi-vs{padding:10px 0}
+  .roi-col{padding:22px 16px}
+  .roi-line{flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px}
+  .roi-line strong{text-align:left}
+  .roi-savings{grid-template-columns:1fr 1fr;gap:10px}
+  .roi-save-card{flex-direction:column;text-align:center;padding:16px 12px}
 }
 </style>
 </head>
@@ -438,6 +575,7 @@ footer .right a:hover{color:var(--text-2)}
   <div class="n-links">
     <a href="#gains">Bénéfices</a>
     <a href="#fonctionnalites">Cockpit</a>
+    <a href="#securite">Sécurité</a>
     <a href="#comparatif">Comparatif</a>
     <a href="#tarifs">Tarifs</a>
     <a href="#demo" class="n-cta">Démo gratuite</a>
@@ -624,6 +762,235 @@ footer .right a:hover{color:var(--text-2)}
   </div>
 </section>
 <div class="sec-div"></div>
+<!-- ═══════════ SÉCURITÉ CAISSE ═══════════ -->
+<section class="secu" id="securite">
+  <div class="wrap">
+    <div class="sec-l rv">Sécurité caisse</div>
+    <h2 class="sec-t rv">Votre monnayeur à 5 000€<br>est <span style="color:var(--orange)">obsolète</span></h2>
+    <p class="sec-d rv">Il compte les pièces. On fait mieux : on sait exactement qui a touché quoi, quand, et combien il manque. Zéro matériel à voler.</p>
+
+    <!-- VS Block -->
+    <div class="secu-vs rv">
+      <div class="secu-vs-col secu-old">
+        <div class="secu-vs-head">🪙 Monnayeur classique</div>
+        <div class="secu-vs-price">5 000 — 8 000€</div>
+        <ul>
+          <li class="secu-bad">Cassé à chaque cambriolage</li>
+          <li class="secu-bad">Ne détecte pas les annulations frauduleuses</li>
+          <li class="secu-bad">Ne sait pas QUI a fait l'erreur</li>
+          <li class="secu-bad">Invisible si l'employé ne tape pas la vente</li>
+          <li class="secu-bad">Maintenance et réparations coûteuses</li>
+          <li class="secu-bad">Ne couvre que ~30% des méthodes de vol</li>
+        </ul>
+      </div>
+      <div class="secu-vs-badge">VS</div>
+      <div class="secu-vs-col secu-new">
+        <div class="secu-vs-head">🛡️ RestoPilot Sécurité</div>
+        <div class="secu-vs-price" style="color:var(--orange)">0€ de matériel</div>
+        <ul>
+          <li class="secu-good">Dans le cloud — impossible à voler</li>
+          <li class="secu-good">Chaque annulation tracée et liée à la vidéo</li>
+          <li class="secu-good">Sessions individuelles par employé</li>
+          <li class="secu-good">Alerte si quelqu'un est au comptoir sans vente</li>
+          <li class="secu-good">Zéro maintenance, zéro panne</li>
+          <li class="secu-good">Couvre 100% des méthodes de vol</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Features grid -->
+    <h3 class="secu-sub rv">Comment ça marche concrètement</h3>
+    <div class="secu-grid">
+      <div class="secu-card rv">
+        <div class="secu-ico">💰</div>
+        <h4>Comptage à l'aveugle</h4>
+        <p>L'employé compte ses billets et pièces en fin de service <strong>sans voir le montant attendu</strong>. Le système compare ensuite. Impossible de tricher en ajustant son comptage.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">📸</div>
+        <h4>Vidéo liée à chaque vente</h4>
+        <p>Chaque ticket est associé au timestamp de votre caméra. Vous cliquez sur une vente → la vidéo s'ouvre pile au bon moment. <strong>Fini de chercher dans 8h d'enregistrement.</strong></p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">👻</div>
+        <h4>Détection de présence sans vente</h4>
+        <p>Quelqu'un est au comptoir mais aucune vente enregistrée ? <strong>Le système le flag automatiquement.</strong> L'employé encaisse au black ? Vous le voyez immédiatement.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">🚫</div>
+        <h4>Annulations & remises tracées</h4>
+        <p>L'arnaque classique : encaisser en espèces puis annuler la vente. <strong>Chaque annulation est tracée</strong> — par qui, quand, combien — avec lien vidéo direct.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">🔓</div>
+        <h4>Tiroir ouvert = alerte</h4>
+        <p>Le tiroir-caisse s'ouvre sans transaction correspondante ? <strong>Notification immédiate.</strong> Chaque "no sale" est loggé avec l'identité de l'employé.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">📊</div>
+        <h4>Ticket moyen par employé</h4>
+        <p>Employé A fait 18€ de ticket moyen, employé B fait 12€ sur le même créneau ? <strong>Soit il vend mal, soit il sous-enregistre.</strong> Le système détecte les écarts.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">🎲</div>
+        <h4>Comptages surprise</h4>
+        <p>Le système déclenche un recomptage aléatoire en plein service. <strong>L'employé ne peut pas planifier son vol</strong> sur la fin de journée et compenser.</p>
+      </div>
+      <div class="secu-card rv">
+        <div class="secu-ico">📱</div>
+        <h4>Alertes temps réel patron</h4>
+        <p>Push notification dès qu'un truc louche se passe : grosse annulation, trop de no sale, écart de caisse anormal. <strong>Même si vous n'êtes pas au restaurant.</strong></p>
+      </div>
+    </div>
+
+    <!-- Bottom punch -->
+    <div class="secu-bottom rv">
+      <div class="secu-bottom-stat">
+        <span class="secu-big">0€</span>
+        <span class="secu-label">Matériel requis</span>
+      </div>
+      <div class="secu-bottom-stat">
+        <span class="secu-big">100%</span>
+        <span class="secu-label">Méthodes de vol couvertes</span>
+      </div>
+      <div class="secu-bottom-stat">
+        <span class="secu-big">30s</span>
+        <span class="secu-label">Pour trouver une vidéo suspecte</span>
+      </div>
+      <div class="secu-bottom-stat">
+        <span class="secu-big">24/7</span>
+        <span class="secu-label">Surveillance automatique</span>
+      </div>
+    </div>
+
+    <!-- SECURITY PRICING -->
+    <h3 class="secu-sub rv">Nos packs Sécurité Caisse</h3>
+    <div class="sp-grid">
+      <div class="sp-card rv">
+        <div class="sp-name">🛡️ Sentinelle</div>
+        <div class="sp-target">Snack · Fast-food · 1-2 employés</div>
+        <div class="sp-price"><span class="sp-amount">99€</span><span class="sp-per">/mois</span></div>
+        <div class="sp-install">Installation : <strong>799€</strong></div>
+        <ul class="sp-feat">
+          <li>1 caméra IP orientée caisse</li>
+          <li>Détecteur de présence comptoir</li>
+          <li>Comptage à l'aveugle</li>
+          <li>Sessions individuelles employé</li>
+          <li>Tracking annulations & remises</li>
+          <li>Vidéo liée aux transactions</li>
+          <li>Alertes temps réel sur mobile</li>
+          <li>Détection présence sans vente</li>
+        </ul>
+        <div class="sp-total">Coût sur 3 ans : <strong>4 363€</strong></div>
+      </div>
+      <div class="sp-card sp-pop rv">
+        <div class="sp-badge-pop">POPULAIRE</div>
+        <div class="sp-name">🏰 Forteresse</div>
+        <div class="sp-target">Pizzeria · Restaurant · 3-5 employés</div>
+        <div class="sp-price"><span class="sp-amount">149€</span><span class="sp-per">/mois</span></div>
+        <div class="sp-install">Installation : <strong>1 299€</strong></div>
+        <ul class="sp-feat">
+          <li>Tout Sentinelle, plus :</li>
+          <li>2 caméras IP (caisse + salle/cuisine)</li>
+          <li>Capteur ouverture tiroir-caisse</li>
+          <li>NVR stockage 30 jours</li>
+          <li>Ticket moyen comparé par employé</li>
+          <li>Tracking "No Sale" avec alertes</li>
+          <li>Rapport hebdo anomalies patron</li>
+          <li>Historique écarts par employé</li>
+        </ul>
+        <div class="sp-total">Coût sur 3 ans : <strong>6 663€</strong></div>
+      </div>
+      <div class="sp-card rv">
+        <div class="sp-name">🔒 Bunker</div>
+        <div class="sp-target">Gros restaurant · Multi-employés · Fort volume espèces</div>
+        <div class="sp-price"><span class="sp-amount">199€</span><span class="sp-per">/mois</span></div>
+        <div class="sp-install">Installation : <strong>1 999€</strong></div>
+        <ul class="sp-feat">
+          <li>Tout Forteresse, plus :</li>
+          <li>3+ caméras (caisse + salle + stock)</li>
+          <li>NVR stockage 90 jours</li>
+          <li>Tiroir-caisse connecté neuf inclus</li>
+          <li>Comptages surprise aléatoires</li>
+          <li>Dashboard sécurité multi-site</li>
+          <li>Audit mensuel automatique</li>
+          <li>Support prioritaire 7j/7</li>
+        </ul>
+        <div class="sp-total">Coût sur 3 ans : <strong>9 163€</strong></div>
+      </div>
+    </div>
+
+    <!-- ROI / SAVINGS -->
+    <div class="secu-roi rv">
+      <h3 class="secu-roi-title">💸 Combien vous économisez vraiment ?</h3>
+      <p class="secu-roi-intro">Un monnayeur à La Réunion, c'est pas juste l'achat. C'est le fret, l'octroi de mer, le technicien qui vient de métropole, et les 8 semaines d'attente quand ça casse. Voici les vrais chiffres.</p>
+
+      <div class="roi-compare">
+        <div class="roi-col roi-old">
+          <div class="roi-col-head">🪙 Monnayeur Glory CI-10<br><span>Le plus vendu aux commerces</span></div>
+          <div class="roi-lines">
+            <div class="roi-line"><span>Achat + fret DOM-TOM</span><strong>10 000 — 14 000€</strong></div>
+            <div class="roi-line"><span>Installation & paramétrage</span><strong>500 — 1 000€</strong></div>
+            <div class="roi-line"><span>Maintenance annuelle (×3 ans)</span><strong>1 200 — 2 400€</strong></div>
+            <div class="roi-line"><span>1 panne / réparation</span><strong>800 — 2 000€</strong></div>
+            <div class="roi-line roi-line-total"><span>Total 3 ans sans cambriolage</span><strong>12 500 — 19 400€</strong></div>
+            <div class="roi-line roi-line-danger"><span>Si cassé 1× en cambriolage</span><strong>+7 000 — 14 000€</strong></div>
+            <div class="roi-line roi-line-danger"><span>Délai remplacement DOM</span><strong>4 à 8 semaines</strong></div>
+            <div class="roi-line roi-line-total"><span>Total réel avec 1 casse</span><strong>19 500 — 33 400€</strong></div>
+          </div>
+          <div class="roi-coverage">Couvre ~30% des méthodes de vol</div>
+        </div>
+        <div class="roi-vs">VS</div>
+        <div class="roi-col roi-new">
+          <div class="roi-col-head">🛡️ RestoPilot Forteresse<br><span>Notre pack le plus populaire</span></div>
+          <div class="roi-lines">
+            <div class="roi-line"><span>Installation complète</span><strong>1 299€</strong></div>
+            <div class="roi-line"><span>Abonnement 36 mois (149€/mois)</span><strong>5 364€</strong></div>
+            <div class="roi-line"><span>Maintenance matérielle</span><strong>0€ inclus</strong></div>
+            <div class="roi-line"><span>Mises à jour logiciel</span><strong>0€ inclus</strong></div>
+            <div class="roi-line roi-line-total roi-line-win"><span>Total 3 ans garanti</span><strong>6 663€</strong></div>
+            <div class="roi-line roi-line-win"><span>Si caméra volée (100€ pièce)</span><strong>Remplacement 48h</strong></div>
+            <div class="roi-line roi-line-win"><span>Données en cas de cambriolage</span><strong>100% préservées (cloud)</strong></div>
+            <div class="roi-line roi-line-total roi-line-win"><span>Total même avec cambriolage</span><strong>~6 763€</strong></div>
+          </div>
+          <div class="roi-coverage" style="background:rgba(242,140,40,0.08);border-color:var(--orange-border);color:var(--orange)">Couvre 100% des méthodes de vol</div>
+        </div>
+      </div>
+
+      <div class="roi-savings">
+        <div class="roi-save-card rv">
+          <div class="roi-save-ico">🛡️</div>
+          <div class="roi-save-txt">
+            <strong>Économie sans cambriolage</strong>
+            <span>5 800€ à 12 700€ sur 3 ans</span>
+          </div>
+        </div>
+        <div class="roi-save-card rv">
+          <div class="roi-save-ico">💥</div>
+          <div class="roi-save-txt">
+            <strong>Économie avec 1 cambriolage</strong>
+            <span>12 700€ à 26 600€ sur 3 ans</span>
+          </div>
+        </div>
+        <div class="roi-save-card rv">
+          <div class="roi-save-ico">🕵️</div>
+          <div class="roi-save-txt">
+            <strong>Vol employé détecté</strong>
+            <span>Un employé qui vole 20€/jour = 7 300€/an récupérés</span>
+          </div>
+        </div>
+        <div class="roi-save-card rv">
+          <div class="roi-save-ico">⏱️</div>
+          <div class="roi-save-txt">
+            <strong>Temps de remplacement</strong>
+            <span>48h chez nous vs 4-8 semaines pour un monnayeur DOM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="sec-div"></div>
 <!-- ═══════════ COMPARE ═══════════ -->
 <section class="compare" id="comparatif">
   <div class="wrap">
@@ -647,6 +1014,9 @@ footer .right a:hover{color:var(--text-2)}
           <tr><td>Mode hors-ligne</td><td class="us"><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td>Payant</td></tr>
           <tr><td>TVA DOM-TOM native</td><td class="us"><span class="ty">✓</span> Auto</td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td>Manuelle</td><td>Manuelle</td></tr>
           <tr><td>Support sur site La Réunion</td><td class="us"><span class="ty">✓</span> Chez vous</td><td><span class="ty">✓</span></td><td><span class="ty">✓</span></td><td><span class="tn">✗</span> Paris</td><td><span class="tn">✗</span> Montréal</td></tr>
+          <tr><td>Sécurité caisse intelligente</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Vidéo liée aux transactions</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
+          <tr><td>Comptage à l'aveugle</td><td class="us"><span class="te">✦ EXCLUSIF</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td><td><span class="tn">✗</span></td></tr>
         </tbody>
       </table>
     </div>
